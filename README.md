@@ -38,7 +38,7 @@ Se mostrara el siguiente mensaje:
 ### Consultar información de la Star Wars API - GET
 
 ```
-https://paffn3mjh2.execute-api.us-west-2.amazonaws.com/${type}/${id}
+https://paffn3mjh2.execute-api.us-west-2.amazonaws.com/swapi/${type}/${id}
 ```
 
 Para este endpoint se necesita de dos parámetros.
@@ -54,7 +54,7 @@ Mientras que con el id puede enviar cualquier número positivo, es decir, del 1 
 Ejemplo:
 
 ```
-https://paffn3mjh2.execute-api.us-west-2.amazonaws.com/films/1
+https://paffn3mjh2.execute-api.us-west-2.amazonaws.com/swapi/films/1
 ```
 
 ---
