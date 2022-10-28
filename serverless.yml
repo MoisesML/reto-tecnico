@@ -1,0 +1,67 @@
+service: aws-node-http-api-project
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-west-2
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        - arn:aws:dynamodb:us-east-1:768737824254:table/TestTable
+
+plugins:
+  - serverless-offline
+
+functions:
+  hello:
+    handler: src/handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+  swapi:
+    handler: src/swapi.getDataFromSwapiApi
+    events:
+      - httpApi:
+          path: /swapi/{type}/{id}
+          method: get
+  createWork:
+    handler: src/createWork.createWork
+    events:
+      - httpApi:
+          path: /works
+          method: post
+  getWorks:
+    handler: src/getWorks.getWorks
+    events:
+      - httpApi:
+          path: /works
+          method: get
+  getWork:
+    handler: src/getWork.getWork
+    events:
+      - httpApi:
+          path: /works/{id}
+          method: get
+  deleteWork:
+    handler: src/deleteWork.deleteWork
+    events:
+      - httpApi:
+          path: /works/{id}
+          method: delete
+resources:
+  Resources:
+    TestTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: TestTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
